@@ -1,6 +1,5 @@
 import * as path from 'node:path';
 
-import { HousingStatus } from '@zerologementvacant/models';
 import async from 'async';
 import sharp, { type Color, type OutputInfo } from 'sharp';
 
@@ -37,12 +36,8 @@ async function createImage(options: CreateImageOptions): Promise<OutputInfo> {
     .toFile(path.join(directory, options.filename));
 }
 
-createImage({
-  border: statusColors.defaultBorderColor,
-  background: statusColors.defaultBackgroundColor,
-  filename: `square-fill-${HousingStatus.NO_ACTION}.png`
-});
-
+// One coloured square per status (index 0..5 → square-fill-0..5.png). Status 0
+// (Aucune action) is included in statusColors now, so no separate default here.
 async.forEachOf(
   statusColors.borderColors,
   async ([status, borderColor], index) => {

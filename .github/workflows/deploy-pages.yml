@@ -53,6 +53,11 @@ jobs:
       - name: Build frontend (demo)
         run: yarn nx build frontend --skip-nx-cache
 
+      - name: Generate map building images (coloured status dots)
+        run: |
+          yarn workspace @zerologementvacant/front exec tsx src/scripts/generate-building-images.ts
+          yarn workspace @zerologementvacant/front exec copyfiles -V -u 1 'public/map/*.png' dist
+
       - name: SPA fallback + disable Jekyll
         run: |
           cp frontend/dist/index.html frontend/dist/404.html
