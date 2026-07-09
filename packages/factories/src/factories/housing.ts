@@ -85,11 +85,11 @@ export function createHousingFactory(adapter: PersistenceAdapter) {
       params.status ??
       faker.helpers.weightedArrayElement([
         {
-          value: HousingStatus.NEVER_CONTACTED,
+          value: HousingStatus.NO_ACTION,
           weight: HOUSING_STATUS_VALUES.length - 1
         },
         ...HOUSING_STATUS_VALUES.filter(
-          (s) => s !== HousingStatus.NEVER_CONTACTED
+          (s) => s !== HousingStatus.NO_ACTION
         ).map((s) => ({ value: s, weight: 1 }))
       ]);
     const subStatuses = [...getSubStatuses(status)];

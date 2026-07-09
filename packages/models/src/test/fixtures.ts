@@ -704,11 +704,11 @@ export function genHousingDTO(
     .map((year) => Number(year));
   const status = faker.helpers.weightedArrayElement([
     {
-      value: HousingStatus.NEVER_CONTACTED,
+      value: HousingStatus.NO_ACTION,
       weight: HOUSING_STATUS_VALUES.length - 1
     },
     ...HOUSING_STATUS_VALUES.filter(
-      (status) => status !== HousingStatus.NEVER_CONTACTED
+      (status) => status !== HousingStatus.NO_ACTION
     ).map((status) => ({
       value: status,
       weight: 1

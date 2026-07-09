@@ -40,7 +40,7 @@ async function createImage(options: CreateImageOptions): Promise<OutputInfo> {
 createImage({
   border: statusColors.defaultBorderColor,
   background: statusColors.defaultBackgroundColor,
-  filename: `square-fill-${HousingStatus.NEVER_CONTACTED}.png`
+  filename: `square-fill-${HousingStatus.NO_ACTION}.png`
 });
 
 async.forEachOf(

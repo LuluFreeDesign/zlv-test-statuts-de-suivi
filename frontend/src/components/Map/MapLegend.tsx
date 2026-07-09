@@ -20,41 +20,41 @@ const STATUS_LEGEND_ITEMS: Array<{
   borderColor: string;
 }> = [
   {
-    status: HousingStatus.NEVER_CONTACTED,
-    label: 'Logement non suivi',
-    backgroundColor: hex.decisions.background.actionHigh.blueFrance.default,
-    borderColor: hex.decisions.text.inverted.grey.default
-  },
-  {
-    status: HousingStatus.WAITING,
-    label: 'Logement en attente de retour',
-    backgroundColor: hex.decisions.background.contrast.yellowTournesol.default,
-    borderColor: hex.decisions.text.label.yellowTournesol.default
-  },
-  {
-    status: HousingStatus.FIRST_CONTACT,
-    label: 'Logement en premier contact',
-    backgroundColor: hex.decisions.background.contrast.blueCumulus.default,
-    borderColor: hex.decisions.text.label.blueCumulus.default
-  },
-  {
-    status: HousingStatus.IN_PROGRESS,
-    label: 'Logement suivi en cours',
+    status: HousingStatus.NO_ACTION,
+    label: 'Aucune action',
     backgroundColor:
       hex.decisions.background.contrast.orangeTerreBattue.default,
     borderColor: hex.decisions.text.label.orangeTerreBattue.default
   },
   {
-    status: HousingStatus.COMPLETED,
-    label: 'Logement suivi terminé',
-    backgroundColor: hex.decisions.background.contrast.greenBourgeon.default,
-    borderColor: hex.decisions.text.label.greenBourgeon.default
+    status: HousingStatus.QUALIFICATION,
+    label: 'En qualification',
+    backgroundColor: hex.decisions.background.contrast.greenMenthe.default,
+    borderColor: hex.decisions.text.label.greenMenthe.default
   },
   {
-    status: HousingStatus.BLOCKED,
-    label: 'Logement bloqué',
-    backgroundColor: hex.decisions.background.contrast.purpleGlycine.default,
-    borderColor: hex.decisions.text.label.purpleGlycine.default
+    status: HousingStatus.REMOTE_EVOLUTION,
+    label: 'Evolution lointaine',
+    backgroundColor: hex.decisions.background.contrast.beigeGrisGalet.default,
+    borderColor: hex.decisions.text.label.beigeGrisGalet.default
+  },
+  {
+    status: HousingStatus.UPCOMING_EVOLUTION,
+    label: 'Evolution à venir',
+    backgroundColor: hex.decisions.background.contrast.yellowTournesol.default,
+    borderColor: hex.decisions.text.label.yellowTournesol.default
+  },
+  {
+    status: HousingStatus.ONGOING_EVOLUTION,
+    label: 'Evolution en cours',
+    backgroundColor: hex.decisions.background.contrast.blueEcume.default,
+    borderColor: hex.decisions.text.label.blueEcume.default
+  },
+  {
+    status: HousingStatus.ACHIEVED_EVOLUTION,
+    label: 'Evolution réalisée',
+    backgroundColor: hex.decisions.background.contrast.greenBourgeon.default,
+    borderColor: hex.decisions.text.label.greenBourgeon.default
   }
 ];
 

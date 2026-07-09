@@ -23,18 +23,18 @@ function BuildingPoints(props: Props) {
         'icon-image': [
           'match',
           ['get', 'status', ['at', 0, ['get', 'housingList']]],
-          HousingStatus.Waiting,
-          `square-fill-${HousingStatus.Waiting}`,
-          HousingStatus.FirstContact,
-          `square-fill-${HousingStatus.FirstContact}`,
-          HousingStatus.InProgress,
-          `square-fill-${HousingStatus.InProgress}`,
-          HousingStatus.Completed,
-          `square-fill-${HousingStatus.Completed}`,
-          HousingStatus.Blocked,
-          `square-fill-${HousingStatus.Blocked}`,
+          HousingStatus.Qualification,
+          `square-fill-${HousingStatus.Qualification}`,
+          HousingStatus.RemoteEvolution,
+          `square-fill-${HousingStatus.RemoteEvolution}`,
+          HousingStatus.UpcomingEvolution,
+          `square-fill-${HousingStatus.UpcomingEvolution}`,
+          HousingStatus.OngoingEvolution,
+          `square-fill-${HousingStatus.OngoingEvolution}`,
+          HousingStatus.AchievedEvolution,
+          `square-fill-${HousingStatus.AchievedEvolution}`,
           // Default value
-          `square-fill-${HousingStatus.NeverContacted}`
+          `square-fill-${HousingStatus.NoAction}`
         ],
         'icon-size': [
           'case',

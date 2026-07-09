@@ -91,7 +91,7 @@ function HousingListTab(props: HousingListTabProps) {
       .catch((error) => {
         if (error.data.name === 'HousingUpdateForbiddenError') {
           setError(
-            'Un ou plusieurs logements sélectionnés sont au moins dans une campagne. Il n’est pas possible de leur attribuer le statut "Non suivi".'
+            'Un ou plusieurs logements sélectionnés sont au moins dans une campagne. Il n’est pas possible de leur attribuer le statut "Aucune action".'
           );
         }
       })

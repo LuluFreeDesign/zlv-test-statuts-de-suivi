@@ -161,12 +161,12 @@ export type EventPayloads = {
 };
 
 export const EVENT_HOUSING_STATUS_VALUES = [
-  'never-contacted',
-  'waiting',
-  'first-contact',
-  'in-progress',
-  'completed',
-  'blocked'
+  'no-action',
+  'qualification',
+  'remote-evolution',
+  'upcoming-evolution',
+  'ongoing-evolution',
+  'achieved-evolution'
 ] as const;
 export type EventHousingStatus = (typeof EVENT_HOUSING_STATUS_VALUES)[number];
 
@@ -176,13 +176,13 @@ export function toEventHousingStatus(
   return (
     match(status)
       .returnType<EventHousingStatus>()
-      .with(HousingStatus.NEVER_CONTACTED, () => 'never-contacted')
-      .with(HousingStatus.WAITING, () => 'waiting')
-      .with(HousingStatus.FIRST_CONTACT, () => 'first-contact')
-      .with(HousingStatus.IN_PROGRESS, () => 'in-progress')
-      .with(HousingStatus.COMPLETED, () => 'completed')
-      .with(HousingStatus.BLOCKED, () => 'blocked')
+      .with(HousingStatus.NO_ACTION, () => 'no-action')
+      .with(HousingStatus.QUALIFICATION, () => 'qualification')
+      .with(HousingStatus.REMOTE_EVOLUTION, () => 'remote-evolution')
+      .with(HousingStatus.UPCOMING_EVOLUTION, () => 'upcoming-evolution')
+      .with(HousingStatus.ONGOING_EVOLUTION, () => 'ongoing-evolution')
+      .with(HousingStatus.ACHIEVED_EVOLUTION, () => 'achieved-evolution')
       // Should never happen
-      .otherwise(() => 'never-contacted')
+      .otherwise(() => 'no-action')
   );
 }
