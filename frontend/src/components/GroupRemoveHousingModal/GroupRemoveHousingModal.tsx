@@ -1,0 +1,37 @@
+import Typography from '@mui/material/Typography';
+
+import { pluralize } from '../../utils/stringUtils';
+import ConfirmationModal from '../modals/ConfirmationModal/ConfirmationModal';
+
+interface Props {
+  housingCount: number;
+  onSubmit: () => Promise<void>;
+}
+
+function GroupRemoveHousingModal(props: Props) {
+  const title = `Supprimer ${props.housingCount} ${pluralize(
+    props.housingCount
+  )('logement')} de ce groupe`;
+
+  return (
+    <ConfirmationModal
+      modalId="group-remove-housing-modal"
+      openingButtonProps={{
+        children: 'Supprimer du groupe',
+        iconId: 'ri-close-line',
+        priority: 'secondary',
+        size: 'small'
+      }}
+      size="large"
+      title={title}
+      onSubmit={props.onSubmit}
+    >
+      <Typography component="p" variant="body1">
+        Êtes-vous sûr de vouloir supprimer ces logements de ce groupe ? Vous
+        pourrez toujours retrouver ces logements dans votre parc de logements.
+      </Typography>
+    </ConfirmationModal>
+  );
+}
+
+export default GroupRemoveHousingModal;

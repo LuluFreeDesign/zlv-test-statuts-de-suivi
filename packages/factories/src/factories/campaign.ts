@@ -1,0 +1,38 @@
+import { faker } from '@faker-js/faker/locale/fr';
+import {
+  type CampaignDTO,
+  type EstablishmentDTO
+} from '@zerologementvacant/models';
+import { Factory } from 'fishery';
+
+import type { PersistenceAdapter } from '../persistence-adapter';
+
+export function createCampaignFactory(
+  adapter: PersistenceAdapter,
+  establishment: EstablishmentDTO
+) {
+  return Factory.define<CampaignDTO>(({ associations }) => {
+    if (!associations.createdBy) {
+      throw new Error(
+        'Campaign factory: createdBy association is required. ' +
+          'Pass it via: factory.build({}, { associations: { createdBy: user } })'
+      );
+    }
+    return {
+      id: faker.string.uuid(),
+      title: faker.commerce.productName(),
+      description: faker.commerce.productDescription(),
+      status: 'draft',
+      filters: {},
+      createdAt: faker.date.past().toJSON(),
+      createdBy: associations.createdBy,
+      sentAt: null,
+      housingCount: 0,
+      ownerCount: 0,
+      returnCount: null,
+      returnRate: null
+    };
+  }).onCreate((entity) =>
+    adapter.create('campaigns', entity, { establishmentId: establishment.id })
+  );
+}
