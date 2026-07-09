@@ -1,0 +1,117 @@
+import { fr } from '@codegouvfr/react-dsfr';
+import Alert from '@codegouvfr/react-dsfr/Alert';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import type { DashboardCard, Resource } from '@zerologementvacant/models';
+import { match } from 'ts-pattern';
+
+import { useFindOneCardQuery } from '~/services/dashboard.service';
+
+import BarChartDisplay from './BarChartDisplay';
+import LineChartDisplay from './LineChartDisplay';
+import PieChartDisplay from './PieChartDisplay';
+import TableDisplay from './TableDisplay';
+
+interface Props {
+  card: DashboardCard;
+  dashboardId: Resource | number;
+}
+
+const CardBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.5rem',
+  padding: '1rem'
+});
+
+const ShowcaseValue = styled(Typography)({
+  fontSize: '3rem',
+  fontWeight: 700,
+  lineHeight: '3.5rem',
+  color: fr.colors.decisions.text.title.grey.default
+});
+
+function formatValue(data: number, card: DashboardCard): string {
+  if (card.type === 'percentage') {
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'percent',
+      maximumFractionDigits: card.decimals
+    }).format(data);
+  }
+  return new Intl.NumberFormat('fr-FR', {
+    maximumFractionDigits: card.decimals
+  }).format(data);
+}
+
+function AnalysisCard(props: Readonly<Props>) {
+  const { card, dashboardId } = props;
+
+  const { data, isLoading, isError } = useFindOneCardQuery({
+    did: dashboardId,
+    cid: card.id
+  });
+
+  if (isLoading) {
+    return (
+      <Skeleton
+        data-testid="card-skeleton"
+        variant="rectangular"
+        width="100%"
+        height="4rem"
+      />
+    );
+  }
+
+  if (isError) {
+    return (
+      <Alert
+        severity="error"
+        title="Impossible de charger ce graphique"
+        description=""
+      />
+    );
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  // Match the chart to the cell's column/row proportions so it fills the space
+  // allotted by the dashboard instead of expanding to its default 2:1 ratio.
+  const aspectRatio = card.size.width / card.size.height;
+
+  return (
+    <CardBox>
+      <Stack component="header">
+        <Typography variant="h5" component="h3">
+          {card.title}
+        </Typography>
+        {card.description !== null && (
+          <Typography>{card.description}</Typography>
+        )}
+      </Stack>
+
+      {match(data)
+        .with({ type: 'pie-chart' }, (chart) => (
+          <PieChartDisplay chart={chart} aspectRatio={aspectRatio} />
+        ))
+        .with({ type: 'bar-chart' }, (chart) => (
+          <BarChartDisplay chart={chart} aspectRatio={aspectRatio} />
+        ))
+        .with({ type: 'table' }, (chart) => (
+          <TableDisplay chart={chart} caption={card.title} />
+        ))
+        .with({ type: 'line-chart' }, (chart) => (
+          <LineChartDisplay chart={chart} aspectRatio={aspectRatio} />
+        ))
+        .otherwise((scalar) => (
+          <ShowcaseValue>{formatValue(scalar.data, card)}</ShowcaseValue>
+        ))}
+    </CardBox>
+  );
+}
+
+export default AnalysisCard;

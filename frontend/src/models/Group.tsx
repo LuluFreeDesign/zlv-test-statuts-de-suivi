@@ -1,0 +1,26 @@
+import type { GroupDTO } from '@zerologementvacant/models';
+
+import { fromUserDTO } from './User';
+import type { User } from './User';
+
+export interface Group {
+  id: string;
+  title: string;
+  description: string;
+  housingCount: number;
+  ownerCount: number;
+  createdAt: Date;
+  createdBy?: User;
+  archivedAt: Date | null;
+}
+
+export const fromGroupDTO = (group: GroupDTO): Group => ({
+  id: group.id,
+  title: group.title,
+  description: group.description,
+  housingCount: group.housingCount,
+  ownerCount: group.ownerCount,
+  createdAt: new Date(group.createdAt),
+  createdBy: group.createdBy ? fromUserDTO(group.createdBy) : undefined,
+  archivedAt: group.archivedAt ? new Date(group.archivedAt) : null
+});
