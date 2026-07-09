@@ -1,22 +1,22 @@
 export enum HousingStatus {
-  NEVER_CONTACTED,
-  WAITING,
-  FIRST_CONTACT,
-  IN_PROGRESS,
-  COMPLETED,
-  BLOCKED
+  NO_ACTION,
+  QUALIFICATION,
+  REMOTE_EVOLUTION,
+  UPCOMING_EVOLUTION,
+  ONGOING_EVOLUTION,
+  ACHIEVED_EVOLUTION
 }
 
 /**
  * A value for the transition to remove the enum `HousingStatus`.
  */
 export const HOUSING_STATUS_IDS = [
-  'never-contacted',
-  'waiting',
-  'first-contact',
-  'in-progress',
-  'completed',
-  'blocked'
+  'no-action',
+  'qualification',
+  'remote-evolution',
+  'upcoming-evolution',
+  'ongoing-evolution',
+  'achieved-evolution'
 ] as const;
 export type HousingStatusId = (typeof HOUSING_STATUS_IDS)[number];
 
@@ -33,40 +33,42 @@ export function isHousingStatus(value: number): value is HousingStatus {
 }
 
 export const HOUSING_STATUS_LABELS: Record<HousingStatus, string> = {
-  [HousingStatus.NEVER_CONTACTED]: 'Non suivi',
-  [HousingStatus.WAITING]: 'En attente de retour',
-  [HousingStatus.FIRST_CONTACT]: 'Premier contact',
-  [HousingStatus.IN_PROGRESS]: 'Suivi en cours',
-  [HousingStatus.COMPLETED]: 'Suivi terminé',
-  [HousingStatus.BLOCKED]: 'Suivi bloqué'
+  [HousingStatus.NO_ACTION]: 'Aucune action',
+  [HousingStatus.QUALIFICATION]: 'En qualification',
+  [HousingStatus.REMOTE_EVOLUTION]: 'Evolution lointaine',
+  [HousingStatus.UPCOMING_EVOLUTION]: 'Evolution à venir',
+  [HousingStatus.ONGOING_EVOLUTION]: 'Evolution en cours',
+  [HousingStatus.ACHIEVED_EVOLUTION]: 'Evolution réalisée'
 };
 
 const HOUSING_SUB_STATUS_LABELS: Record<HousingStatus, ReadonlySet<string>> = {
-  [HousingStatus.NEVER_CONTACTED]: new Set(),
-  [HousingStatus.WAITING]: new Set(),
-  [HousingStatus.FIRST_CONTACT]: new Set([
+  [HousingStatus.NO_ACTION]: new Set(),
+  [HousingStatus.QUALIFICATION]: new Set(),
+  [HousingStatus.REMOTE_EVOLUTION]: new Set([
+    'Situation bloquée/complexe',
+    'NPAI',
+    'Signaux faibles'
+  ]),
+  [HousingStatus.UPCOMING_EVOLUTION]: new Set([
     'Intérêt potentiel / En réflexion',
     'En pré-accompagnement',
-    'N’habite pas à l’adresse indiquée'
+    'Mutation à venir'
   ]),
-  [HousingStatus.IN_PROGRESS]: new Set([
+  [HousingStatus.ONGOING_EVOLUTION]: new Set([
     'En accompagnement',
     'Intervention publique',
-    'En sortie sans accompagnement',
-    'Mutation en cours ou effectuée'
+    'Sans accompagnement',
+    'Mutation en cours/effectuée'
   ]),
-  [HousingStatus.COMPLETED]: new Set([
+  [HousingStatus.ACHIEVED_EVOLUTION]: new Set([
     'Sortie de la vacance',
-    "N'était pas vacant",
-    'Sortie de la passoire énergétique',
-    "N'était pas une passoire énergétique",
+    'Sortie de passoire thermique',
+    'N’était pas vacant',
+    'N’était pas une passoire thermique',
+    'N’était pas un local commercial vacant',
+    'N’était pas une résidence secondaire',
+    'N’était pas un logement',
     'Autre objectif rempli'
-  ]),
-  [HousingStatus.BLOCKED]: new Set([
-    'Blocage involontaire du propriétaire',
-    'Blocage volontaire du propriétaire',
-    'Immeuble / Environnement',
-    'Tiers en cause'
   ])
 } as const;
 

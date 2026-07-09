@@ -16,13 +16,16 @@ function createTab(
   status: HousingStatus,
   query: ReturnType<typeof useCountHousingQuery>
 ): ElementOf<TabsProps.Controlled['tabs']> {
+  // Abbreviate "Evolution" to "Évol." in the tabs only (space is tight there);
+  // the full label is kept everywhere else (badges, filters, resource page…).
+  const label = HOUSING_STATUS_LABELS[status].replace('Evolution', 'Évol.');
   return {
     tabId: toHousingStatusId(status),
     label: match(query)
-      .with({ isLoading: true }, () => `${HOUSING_STATUS_LABELS[status]} (...)`)
+      .with({ isLoading: true }, () => `${label} (...)`)
       .with(
         { isSuccess: true, data: { housing: Pattern.number.select() } },
-        (housing) => `${HOUSING_STATUS_LABELS[status]} (${housing})`
+        (housing) => `${label} (${housing})`
       )
       .otherwise(() => null)
   };
@@ -31,37 +34,37 @@ function createTab(
 export function useStatusTabs(filters: HousingFilters) {
   const { activeStatus, activeTab, setActiveTab } = useHousingListTabs();
 
-  const countNeverContactedQuery = useCountHousingQuery({
+  const countNoActionQuery = useCountHousingQuery({
     ...filters,
-    status: HousingStatus.NEVER_CONTACTED
+    status: HousingStatus.NO_ACTION
   });
-  const countWaitingQuery = useCountHousingQuery({
+  const countQualificationQuery = useCountHousingQuery({
     ...filters,
-    status: HousingStatus.WAITING
+    status: HousingStatus.QUALIFICATION
   });
-  const countFirstContactQuery = useCountHousingQuery({
+  const countRemoteEvolutionQuery = useCountHousingQuery({
     ...filters,
-    status: HousingStatus.FIRST_CONTACT
+    status: HousingStatus.REMOTE_EVOLUTION
   });
-  const countInProgressQuery = useCountHousingQuery({
+  const countUpcomingEvolutionQuery = useCountHousingQuery({
     ...filters,
-    status: HousingStatus.IN_PROGRESS
+    status: HousingStatus.UPCOMING_EVOLUTION
   });
-  const countCompletedQuery = useCountHousingQuery({
+  const countOngoingEvolutionQuery = useCountHousingQuery({
     ...filters,
-    status: HousingStatus.COMPLETED
+    status: HousingStatus.ONGOING_EVOLUTION
   });
-  const countBlockedQuery = useCountHousingQuery({
+  const countAchievedEvolutionQuery = useCountHousingQuery({
     ...filters,
-    status: HousingStatus.BLOCKED
+    status: HousingStatus.ACHIEVED_EVOLUTION
   });
   const queries = [
-    countNeverContactedQuery,
-    countWaitingQuery,
-    countFirstContactQuery,
-    countInProgressQuery,
-    countCompletedQuery,
-    countBlockedQuery
+    countNoActionQuery,
+    countQualificationQuery,
+    countRemoteEvolutionQuery,
+    countUpcomingEvolutionQuery,
+    countOngoingEvolutionQuery,
+    countAchievedEvolutionQuery
   ];
 
   const sum: number | null = queries.every((query) => query.isSuccess)
@@ -77,12 +80,12 @@ export function useStatusTabs(filters: HousingFilters) {
       tabId: 'all',
       label: sum !== null ? `Tous (${sum})` : 'Tous'
     },
-    createTab(HousingStatus.NEVER_CONTACTED, countNeverContactedQuery),
-    createTab(HousingStatus.WAITING, countWaitingQuery),
-    createTab(HousingStatus.FIRST_CONTACT, countFirstContactQuery),
-    createTab(HousingStatus.IN_PROGRESS, countInProgressQuery),
-    createTab(HousingStatus.COMPLETED, countCompletedQuery),
-    createTab(HousingStatus.BLOCKED, countBlockedQuery)
+    createTab(HousingStatus.NO_ACTION, countNoActionQuery),
+    createTab(HousingStatus.QUALIFICATION, countQualificationQuery),
+    createTab(HousingStatus.REMOTE_EVOLUTION, countRemoteEvolutionQuery),
+    createTab(HousingStatus.UPCOMING_EVOLUTION, countUpcomingEvolutionQuery),
+    createTab(HousingStatus.ONGOING_EVOLUTION, countOngoingEvolutionQuery),
+    createTab(HousingStatus.ACHIEVED_EVOLUTION, countAchievedEvolutionQuery)
   ];
 
   return {

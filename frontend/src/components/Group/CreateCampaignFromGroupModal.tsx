@@ -110,8 +110,8 @@ export function createCampaignFromGroupModal(
             </Stack>
 
             <Typography variant="body2" sx={{ mb: '0.25rem' }}>
-              Une fois la campagne créée, les logements « Non suivi » passeront
-              « En attente de retour ».
+              Une fois la campagne créée, les logements « Aucune action »
+              passeront « En qualification ».
             </Typography>
 
             <Box sx={{ '& .fr-input-group': { marginBottom: '0.75rem' } }}>

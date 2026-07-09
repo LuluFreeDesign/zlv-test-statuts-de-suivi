@@ -22,74 +22,71 @@ export interface HousingSubStatus {
  * @deprecated See {@link HousingStatusDTO}
  */
 export const HousingStatus = {
-  NeverContacted: HousingStatusDTO.NEVER_CONTACTED,
-  Waiting: HousingStatusDTO.WAITING,
-  FirstContact: HousingStatusDTO.FIRST_CONTACT,
-  InProgress: HousingStatusDTO.IN_PROGRESS,
-  Completed: HousingStatusDTO.COMPLETED,
-  Blocked: HousingStatusDTO.BLOCKED
+  NoAction: HousingStatusDTO.NO_ACTION,
+  Qualification: HousingStatusDTO.QUALIFICATION,
+  RemoteEvolution: HousingStatusDTO.REMOTE_EVOLUTION,
+  UpcomingEvolution: HousingStatusDTO.UPCOMING_EVOLUTION,
+  OngoingEvolution: HousingStatusDTO.ONGOING_EVOLUTION,
+  AchievedEvolution: HousingStatusDTO.ACHIEVED_EVOLUTION
 } as const;
 
 export type HousingStatus = (typeof HousingStatus)[keyof typeof HousingStatus];
 
 export const HousingStates: HousingState[] = [
   {
-    status: HousingStatusDTO.NEVER_CONTACTED,
-    title: 'Non suivi',
-    colorFamily: 'beige-gris-galet'
+    status: HousingStatusDTO.NO_ACTION,
+    title: 'Aucune action',
+    colorFamily: 'orange-terre-battue'
   },
   {
-    status: HousingStatusDTO.WAITING,
-    title: 'En attente de retour',
-    hint: 'Le propriétaire n’a pas répondu au courrier.',
-    colorFamily: 'yellow-tournesol'
+    status: HousingStatusDTO.QUALIFICATION,
+    title: 'En qualification',
+    colorFamily: 'green-menthe'
   },
   {
-    status: HousingStatusDTO.FIRST_CONTACT,
-    title: 'Premier contact',
-    hint: 'Phase de qualification de la situation et d’engagement du propriétaire pour l’évolution de sa situation.',
-    colorFamily: 'blue-cumulus',
+    status: HousingStatusDTO.REMOTE_EVOLUTION,
+    title: 'Evolution lointaine',
+    colorFamily: 'beige-gris-galet',
+    subStatusList: [
+      { title: 'Situation bloquée/complexe' },
+      { title: 'NPAI' },
+      { title: 'Signaux faibles' }
+    ]
+  },
+  {
+    status: HousingStatusDTO.UPCOMING_EVOLUTION,
+    title: 'Evolution à venir',
+    colorFamily: 'yellow-tournesol',
     subStatusList: [
       { title: 'Intérêt potentiel / En réflexion' },
       { title: 'En pré-accompagnement' },
-      { title: 'N’habite pas à l’adresse indiquée' }
+      { title: 'Mutation à venir' }
     ]
   },
   {
-    status: HousingStatusDTO.IN_PROGRESS,
-    title: 'Suivi en cours',
-    hint: 'La situation du logement est en cours d’évolution (vers une sortie de la vacance ou de passoire énergétique).',
-    colorFamily: 'orange-terre-battue',
+    status: HousingStatusDTO.ONGOING_EVOLUTION,
+    title: 'Evolution en cours',
+    colorFamily: 'blue-ecume',
     subStatusList: [
       { title: 'En accompagnement' },
       { title: 'Intervention publique' },
-      { title: 'En sortie sans accompagnement' },
-      { title: 'Mutation en cours ou effectuée' }
+      { title: 'Sans accompagnement' },
+      { title: 'Mutation en cours/effectuée' }
     ]
   },
   {
-    status: HousingStatusDTO.COMPLETED,
-    title: 'Suivi terminé',
-    hint: 'Le dossier ne nécessite plus de suivi car la situation du logement a évolué ou la base de données d’origine comportait une erreur.',
+    status: HousingStatusDTO.ACHIEVED_EVOLUTION,
+    title: 'Evolution réalisée',
     colorFamily: 'green-bourgeon',
     subStatusList: [
       { title: 'Sortie de la vacance' },
-      { title: "N'était pas vacant" },
-      { title: 'Sortie de la passoire énergétique' },
-      { title: "N'était pas une passoire énergétique" },
+      { title: 'Sortie de passoire thermique' },
+      { title: 'N’était pas vacant' },
+      { title: 'N’était pas une passoire thermique' },
+      { title: 'N’était pas un local commercial vacant' },
+      { title: 'N’était pas une résidence secondaire' },
+      { title: 'N’était pas un logement' },
       { title: 'Autre objectif rempli' }
-    ]
-  },
-  {
-    status: HousingStatusDTO.BLOCKED,
-    title: 'Bloqué',
-    hint: 'La situation ne peut pas évoluer à court ou moyen terme.',
-    colorFamily: 'purple-glycine',
-    subStatusList: [
-      { title: 'Blocage involontaire du propriétaire' },
-      { title: 'Blocage volontaire du propriétaire' },
-      { title: 'Immeuble / Environnement' },
-      { title: 'Tiers en cause' }
     ]
   }
 ];

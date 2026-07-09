@@ -5,25 +5,28 @@ import type { NonEmptyArray } from 'ts-essentials';
 
 const hex = fr.colors.getHex({ isDark: false });
 const statuses = [
-  HousingStatus.WAITING,
-  HousingStatus.FIRST_CONTACT,
-  HousingStatus.IN_PROGRESS,
-  HousingStatus.COMPLETED,
-  HousingStatus.BLOCKED
+  HousingStatus.NO_ACTION,
+  HousingStatus.QUALIFICATION,
+  HousingStatus.REMOTE_EVOLUTION,
+  HousingStatus.UPCOMING_EVOLUTION,
+  HousingStatus.ONGOING_EVOLUTION,
+  HousingStatus.ACHIEVED_EVOLUTION
 ];
 const backgroundColors = Array.zip(statuses, [
-  hex.decisions.background.contrast.yellowTournesol.default,
-  hex.decisions.background.contrast.blueCumulus.default,
   hex.decisions.background.contrast.orangeTerreBattue.default,
-  hex.decisions.background.contrast.greenBourgeon.default,
-  hex.decisions.background.contrast.purpleGlycine.default
+  hex.decisions.background.contrast.greenMenthe.default,
+  hex.decisions.background.contrast.beigeGrisGalet.default,
+  hex.decisions.background.contrast.yellowTournesol.default,
+  hex.decisions.background.contrast.blueEcume.default,
+  hex.decisions.background.contrast.greenBourgeon.default
 ]) as NonEmptyArray<[HousingStatus, string]>;
 const borderColors = Array.zip(statuses, [
-  hex.decisions.text.label.yellowTournesol.default,
-  hex.decisions.text.label.blueCumulus.default,
   hex.decisions.text.label.orangeTerreBattue.default,
-  hex.decisions.text.label.greenBourgeon.default,
-  hex.decisions.text.label.purpleGlycine.default
+  hex.decisions.text.label.greenMenthe.default,
+  hex.decisions.text.label.beigeGrisGalet.default,
+  hex.decisions.text.label.yellowTournesol.default,
+  hex.decisions.text.label.blueEcume.default,
+  hex.decisions.text.label.greenBourgeon.default
 ]) as NonEmptyArray<[HousingStatus, string]>;
 const defaultBackgroundColor =
   hex.decisions.background.actionHigh.blueFrance.default;

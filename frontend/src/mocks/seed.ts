@@ -5,6 +5,7 @@ import {
   type GroupDTO,
   type HousingDTO,
   HousingStatus,
+  getSubStatuses,
   Occupancy,
   type OwnerDTO,
   type UserDTO,
@@ -310,6 +311,23 @@ export function seed(): DemoSeed {
       ]);
     const rentDataYear = rentFileYear === 'ff-2024-locatif' ? 2024 : 2023;
 
+    // Spread housings across the follow-up statuses so the whole taxonomy
+    // (statuses, sub-statuses, list tabs and filters) is visible in the demo.
+    // The sub-status is always drawn from the ones valid for that status.
+    const status = faker.helpers.weightedArrayElement([
+      { weight: 30, value: HousingStatus.NO_ACTION },
+      { weight: 14, value: HousingStatus.QUALIFICATION },
+      { weight: 14, value: HousingStatus.REMOTE_EVOLUTION },
+      { weight: 14, value: HousingStatus.UPCOMING_EVOLUTION },
+      { weight: 18, value: HousingStatus.ONGOING_EVOLUTION },
+      { weight: 10, value: HousingStatus.ACHIEVED_EVOLUTION }
+    ]);
+    const availableSubStatuses = [...getSubStatuses(status)];
+    const subStatus =
+      availableSubStatuses.length === 0
+        ? null
+        : faker.helpers.arrayElement(availableSubStatuses);
+
     const housing: HousingDTO = {
       ...base,
       rawAddress: [
@@ -326,9 +344,8 @@ export function seed(): DemoSeed {
         faker.number.float({ min: -0.009, max: 0.009, fractionDigits: 5 }),
       occupancy,
       occupancyIntended: null,
-      // Every housing starts as "Non suivi" (no sub-status).
-      status: HousingStatus.NEVER_CONTACTED,
-      subStatus: null,
+      status,
+      subStatus,
       // LOVAC 2026 for vacant housings (so they match the default
       // "LOVAC 2026" filter), fichiers fonciers 2023/2024 for rented ones.
       dataFileYears: isVacant ? ['lovac-2026'] : [rentFileYear],
