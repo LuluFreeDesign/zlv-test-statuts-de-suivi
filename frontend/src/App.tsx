@@ -136,7 +136,13 @@ const router = sentry.createBrowserRouter(
 
       <Route path="*" element={<NotFoundView />} />
     </Route>
-  )
+  ),
+  // The app is served under a sub-path in demo mode (e.g. GitHub Pages
+  // '/zlv-test-statuts-de-suivi/'); without this, the router only matches
+  // routes at the domain root, so a hard load of the deployed URL renders the
+  // catch-all NotFoundView (a same-origin client-side navigation afterwards
+  // still works, since it starts matching from '/').
+  { basename: import.meta.env.BASE_URL }
 );
 
 function App() {
