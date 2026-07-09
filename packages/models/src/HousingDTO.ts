@@ -146,7 +146,9 @@ export interface HousingCountDTO {
 export const HOUSING_SOURCE_VALUES = [
   'lovac',
   'datafoncier-manual',
-  'datafoncier-import'
+  'datafoncier-import',
+  'ressec',
+  'locomvac'
 ] as const;
 
 export type HousingSource = (typeof HOUSING_SOURCE_VALUES)[number];

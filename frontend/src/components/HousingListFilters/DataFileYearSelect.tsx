@@ -21,7 +21,12 @@ const UNKNOWN_SOURCE_LABEL = 'Source inconnue';
 
 const DATA_FILE_YEAR_GROUPS: Record<string, DataFileYearFilterValue[]> = {
   'Sources les plus récentes': ['lovac-2026', 'ff-2024-locatif'],
-  'Autres sources': ['datafoncier-manual', null],
+  'Autres sources': [
+    'datafoncier-manual',
+    'ressec-2026',
+    'locomvac-2026',
+    null
+  ],
   'Sources antérieures': [
     'lovac-2025',
     'lovac-2024',

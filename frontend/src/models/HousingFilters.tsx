@@ -842,6 +842,18 @@ export const dataFileYearsIncludedOptions: SelectOption<
     value: 'lovac-2026' as const,
     label: 'LOVAC 2026 (vacant > 2 ans)',
     badgeLabel: 'Source et millésime inclus : LOVAC 2026 (vacant > 2 ans)'
+  },
+  {
+    value: 'ressec-2026' as const,
+    label: 'RESSEC 2026 (résidences secondaires)',
+    badgeLabel:
+      'Source et millésime inclus : RESSEC 2026 (résidences secondaires)'
+  },
+  {
+    value: 'locomvac-2026' as const,
+    label: 'LOCOMVAC 2026 (locaux commerciaux vacants)',
+    badgeLabel:
+      'Source et millésime inclus : LOCOMVAC 2026 (locaux commerciaux vacants)'
   }
 ].sort((optionA, optionB) => optionB.value.localeCompare(optionA.value));
 
@@ -868,6 +880,20 @@ export const DATA_FILE_YEAR_INCLUDED_OPTIONS = DATA_FILE_YEAR_VALUES.reduce(
         })
         .with(Pattern.string.startsWith('lovac-'), (value) => {
           const label = `LOVAC ${value.slice('lovac-'.length)} (vacant > 2 ans)`;
+          return {
+            label,
+            badgeLabel: `Source et millésime inclus : ${label}`
+          };
+        })
+        .with(Pattern.string.startsWith('ressec-'), (value) => {
+          const label = `RESSEC ${value.slice('ressec-'.length)} (résidences secondaires)`;
+          return {
+            label,
+            badgeLabel: `Source et millésime inclus : ${label}`
+          };
+        })
+        .with(Pattern.string.startsWith('locomvac-'), (value) => {
+          const label = `LOCOMVAC ${value.slice('locomvac-'.length)} (locaux commerciaux vacants)`;
           return {
             label,
             badgeLabel: `Source et millésime inclus : ${label}`
@@ -903,6 +929,20 @@ export const DATA_FILE_YEAR_EXCLUDED_OPTIONS = DATA_FILE_YEAR_VALUES.reduce(
         })
         .with(Pattern.string.startsWith('lovac-'), (value) => {
           const label = `LOVAC ${value.slice('lovac-'.length)} (vacant > 2 ans)`;
+          return {
+            label,
+            badgeLabel: `Source et millésime exclus : ${label}`
+          };
+        })
+        .with(Pattern.string.startsWith('ressec-'), (value) => {
+          const label = `RESSEC ${value.slice('ressec-'.length)} (résidences secondaires)`;
+          return {
+            label,
+            badgeLabel: `Source et millésime exclus : ${label}`
+          };
+        })
+        .with(Pattern.string.startsWith('locomvac-'), (value) => {
+          const label = `LOCOMVAC ${value.slice('locomvac-'.length)} (locaux commerciaux vacants)`;
           return {
             label,
             badgeLabel: `Source et millésime exclus : ${label}`
@@ -978,6 +1018,18 @@ export const dataFileYearsExcludedOptions: SelectOption<
     value: 'lovac-2026' as const,
     label: 'LOVAC 2026 (vacant > 2 ans)',
     badgeLabel: 'Source et millésime exclus : LOVAC 2026 (vacant > 2 ans)'
+  },
+  {
+    value: 'ressec-2026' as const,
+    label: 'RESSEC 2026 (résidences secondaires)',
+    badgeLabel:
+      'Source et millésime exclus : RESSEC 2026 (résidences secondaires)'
+  },
+  {
+    value: 'locomvac-2026' as const,
+    label: 'LOCOMVAC 2026 (locaux commerciaux vacants)',
+    badgeLabel:
+      'Source et millésime exclus : LOCOMVAC 2026 (locaux commerciaux vacants)'
   }
 ].sort((optionA, optionB) => optionB.value.localeCompare(optionA.value));
 

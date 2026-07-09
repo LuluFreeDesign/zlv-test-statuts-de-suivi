@@ -699,6 +699,12 @@ export function genHousingDTO(
         .with(Pattern.string.startsWith('lovac-'), (dataFileYear) =>
           dataFileYear.substring('lovac-'.length, 'lovac-YYYY'.length)
         )
+        .with(Pattern.string.startsWith('ressec-'), (dataFileYear) =>
+          dataFileYear.substring('ressec-'.length, 'ressec-YYYY'.length)
+        )
+        .with(Pattern.string.startsWith('locomvac-'), (dataFileYear) =>
+          dataFileYear.substring('locomvac-'.length, 'locomvac-YYYY'.length)
+        )
         .exhaustive()
     )
     .map((year) => Number(year));
