@@ -12,21 +12,25 @@ const statuses = [
   HousingStatus.ONGOING_EVOLUTION,
   HousingStatus.ACHIEVED_EVOLUTION
 ];
+// "actionHigh" is the vivid/saturated tier DSFR uses for buttons — darker and
+// more visible on the map than the pale "contrast" tier used for badges.
 const backgroundColors = Array.zip(statuses, [
-  hex.decisions.background.contrast.orangeTerreBattue.default,
-  hex.decisions.background.contrast.greenMenthe.default,
-  hex.decisions.background.contrast.beigeGrisGalet.default,
-  hex.decisions.background.contrast.yellowTournesol.default,
-  hex.decisions.background.contrast.blueEcume.default,
-  hex.decisions.background.contrast.greenBourgeon.default
+  hex.decisions.background.actionHigh.orangeTerreBattue.default,
+  hex.decisions.background.actionHigh.greenMenthe.default,
+  hex.decisions.background.actionHigh.beigeGrisGalet.default,
+  hex.decisions.background.actionHigh.yellowTournesol.default,
+  hex.decisions.background.actionHigh.blueEcume.default,
+  hex.decisions.background.actionHigh.greenBourgeon.default
 ]) as NonEmptyArray<[HousingStatus, string]>;
+// Neutral light outline (same as the default marker below) since the fill is
+// now vivid enough that a same-hue border would blend into it.
 const borderColors = Array.zip(statuses, [
-  hex.decisions.text.label.orangeTerreBattue.default,
-  hex.decisions.text.label.greenMenthe.default,
-  hex.decisions.text.label.beigeGrisGalet.default,
-  hex.decisions.text.label.yellowTournesol.default,
-  hex.decisions.text.label.blueEcume.default,
-  hex.decisions.text.label.greenBourgeon.default
+  hex.decisions.text.inverted.grey.default,
+  hex.decisions.text.inverted.grey.default,
+  hex.decisions.text.inverted.grey.default,
+  hex.decisions.text.inverted.grey.default,
+  hex.decisions.text.inverted.grey.default,
+  hex.decisions.text.inverted.grey.default
 ]) as NonEmptyArray<[HousingStatus, string]>;
 const defaultBackgroundColor =
   hex.decisions.background.actionHigh.blueFrance.default;

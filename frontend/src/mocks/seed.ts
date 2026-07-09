@@ -1,10 +1,12 @@
 import { faker } from '@faker-js/faker/locale/fr';
 import {
   type CampaignDTO,
+  type DataFileYear,
   type EstablishmentDTO,
   type GroupDTO,
   type HousingDTO,
   HousingStatus,
+  type HousingSource,
   getSubStatuses,
   Occupancy,
   type OwnerDTO,
@@ -34,6 +36,12 @@ export const DEMO_EMAIL = 'demo@zerologementvacant.beta.gouv.fr';
  * (weighted by population, so Bayonne concentrates most of them).
  */
 const HOUSING_COUNT = 300;
+
+/**
+ * Number of fake housings generated for each fictional extra source (RESSEC,
+ * LOCOMVAC) — see {@link genExtraSourceHousings}.
+ */
+const EXTRA_SOURCE_HOUSING_COUNT = 15;
 
 // Communes de la CA du Pays Basque (SIREN 200067106) — source geo.api.gouv.fr.
 // geoCode INSEE, code postal principal et coordonnées du centre (réels) pour la carte.
@@ -372,6 +380,106 @@ export function seed(): DemoSeed {
       }))
     );
   }
+
+  /**
+   * Fake housings for a fictional extra source: unlike LOVAC/fichiers fonciers
+   * (real vacant/rented housings), these represent a case the "Evolution
+   * réalisée" sub-statuses already anticipate — records imported as
+   * potentially vacant that turn out to actually be a secondary residence or
+   * a vacant commercial premises. A share of them are already flagged as such
+   * (status "Evolution réalisée" with the matching sub-status); the rest are
+   * still unreviewed, so the whole workflow is visible in the demo.
+   */
+  function genExtraSourceHousings(
+    count: number,
+    options: {
+      dataFileYear: DataFileYear;
+      dataYear: number;
+      source: HousingSource;
+      occupancy: Occupancy;
+      achievedSubStatus: string;
+    }
+  ): HousingDTO[] {
+    return Array.from({ length: count }, () => {
+      const commune = faker.helpers.weightedArrayElement(communeChoices);
+      const base = genHousingDTO(commune.geoCode);
+      const street = faker.helpers.arrayElement(STREETS);
+      const houseNumber = faker.number.int({ min: 1, max: 120 });
+
+      const status = faker.helpers.weightedArrayElement([
+        { weight: 30, value: HousingStatus.NO_ACTION },
+        { weight: 14, value: HousingStatus.QUALIFICATION },
+        { weight: 14, value: HousingStatus.REMOTE_EVOLUTION },
+        { weight: 14, value: HousingStatus.UPCOMING_EVOLUTION },
+        { weight: 18, value: HousingStatus.ONGOING_EVOLUTION },
+        { weight: 10, value: HousingStatus.ACHIEVED_EVOLUTION }
+      ]);
+      const availableSubStatuses = [...getSubStatuses(status)];
+      const subStatus =
+        status === HousingStatus.ACHIEVED_EVOLUTION
+          ? options.achievedSubStatus
+          : availableSubStatuses.length === 0
+            ? null
+            : faker.helpers.arrayElement(availableSubStatuses);
+
+      const housing: HousingDTO = {
+        ...base,
+        rawAddress: [
+          `${houseNumber} ${street}`,
+          `${commune.postalCode} ${commune.city}`
+        ],
+        latitude:
+          commune.center.latitude +
+          faker.number.float({ min: -0.006, max: 0.006, fractionDigits: 5 }),
+        longitude:
+          commune.center.longitude +
+          faker.number.float({ min: -0.009, max: 0.009, fractionDigits: 5 }),
+        occupancy: options.occupancy,
+        occupancyIntended: null,
+        status,
+        subStatus,
+        dataFileYears: [options.dataFileYear],
+        dataYears: [options.dataYear],
+        source: options.source
+      };
+
+      const ownerCount = faker.number.int({ min: 1, max: 4 });
+      const selectedOwners = faker.helpers.arrayElements(owners, ownerCount);
+      data.housingOwners.set(
+        housing.id,
+        selectedOwners.map((owner, rankIndex) => ({
+          id: owner.id,
+          rank: rankIndex + 1,
+          locprop: null,
+          idprocpte: null,
+          idprodroit: null,
+          propertyRight: null,
+          relativeLocation: 'same-commune',
+          absoluteDistance: 50
+        }))
+      );
+
+      return housing;
+    });
+  }
+
+  housings.push(
+    ...genExtraSourceHousings(EXTRA_SOURCE_HOUSING_COUNT, {
+      dataFileYear: 'ressec-2026',
+      dataYear: 2026,
+      source: 'ressec',
+      occupancy: Occupancy.SECONDARY_RESIDENCE,
+      achievedSubStatus: 'N’était pas une résidence secondaire'
+    }),
+    ...genExtraSourceHousings(EXTRA_SOURCE_HOUSING_COUNT, {
+      dataFileYear: 'locomvac-2026',
+      dataYear: 2026,
+      source: 'locomvac',
+      occupancy: Occupancy.COMMERCIAL_OR_OFFICE,
+      achievedSubStatus: 'N’était pas un local commercial vacant'
+    })
+  );
+
   data.housings.push(...housings);
 
   // --- Localities (commune filter) -----------------------------------------

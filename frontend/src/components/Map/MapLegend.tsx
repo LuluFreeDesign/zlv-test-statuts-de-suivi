@@ -23,38 +23,40 @@ const STATUS_LEGEND_ITEMS: Array<{
     status: HousingStatus.NO_ACTION,
     label: 'Aucune action',
     backgroundColor:
-      hex.decisions.background.contrast.orangeTerreBattue.default,
-    borderColor: hex.decisions.text.label.orangeTerreBattue.default
+      hex.decisions.background.actionHigh.orangeTerreBattue.default,
+    borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.QUALIFICATION,
     label: 'En qualification',
-    backgroundColor: hex.decisions.background.contrast.greenMenthe.default,
-    borderColor: hex.decisions.text.label.greenMenthe.default
+    backgroundColor: hex.decisions.background.actionHigh.greenMenthe.default,
+    borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.REMOTE_EVOLUTION,
     label: 'Evolution lointaine',
-    backgroundColor: hex.decisions.background.contrast.beigeGrisGalet.default,
-    borderColor: hex.decisions.text.label.beigeGrisGalet.default
+    backgroundColor:
+      hex.decisions.background.actionHigh.beigeGrisGalet.default,
+    borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.UPCOMING_EVOLUTION,
     label: 'Evolution à venir',
-    backgroundColor: hex.decisions.background.contrast.yellowTournesol.default,
-    borderColor: hex.decisions.text.label.yellowTournesol.default
+    backgroundColor:
+      hex.decisions.background.actionHigh.yellowTournesol.default,
+    borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.ONGOING_EVOLUTION,
     label: 'Evolution en cours',
-    backgroundColor: hex.decisions.background.contrast.blueEcume.default,
-    borderColor: hex.decisions.text.label.blueEcume.default
+    backgroundColor: hex.decisions.background.actionHigh.blueEcume.default,
+    borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.ACHIEVED_EVOLUTION,
     label: 'Evolution réalisée',
-    backgroundColor: hex.decisions.background.contrast.greenBourgeon.default,
-    borderColor: hex.decisions.text.label.greenBourgeon.default
+    backgroundColor: hex.decisions.background.actionHigh.greenBourgeon.default,
+    borderColor: hex.decisions.text.inverted.grey.default
   }
 ];
 

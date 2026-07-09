@@ -73,6 +73,12 @@ export function createHousingFactory(adapter: PersistenceAdapter) {
           .with(Pattern.string.startsWith('lovac-'), (y) =>
             y.substring('lovac-'.length, 'lovac-YYYY'.length)
           )
+          .with(Pattern.string.startsWith('ressec-'), (y) =>
+            y.substring('ressec-'.length, 'ressec-YYYY'.length)
+          )
+          .with(Pattern.string.startsWith('locomvac-'), (y) =>
+            y.substring('locomvac-'.length, 'locomvac-YYYY'.length)
+          )
           .exhaustive()
       ),
       Array.map(Number),

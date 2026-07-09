@@ -163,7 +163,9 @@ export function getSource(
     lovac: 'LOVAC',
     ff: 'Fichiers fonciers',
     'datafoncier-import': 'Fichiers fonciers',
-    'datafoncier-manual': 'Fichiers fonciers'
+    'datafoncier-manual': 'Fichiers fonciers',
+    ressec: 'RESSEC',
+    locomvac: 'LOCOMVAC'
   };
 
   const years = List(housing.dataFileYears)
