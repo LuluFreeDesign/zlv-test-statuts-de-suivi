@@ -12,15 +12,18 @@ const statuses = [
   HousingStatus.ONGOING_EVOLUTION,
   HousingStatus.ACHIEVED_EVOLUTION
 ];
-// "actionHigh" is the vivid/saturated tier DSFR uses for buttons — darker and
-// more visible on the map than the pale "contrast" tier used for badges.
+// DSFR's "main" swatch per color: a mid-saturation tone, theme-independent.
+// The "contrast"/"alt" decision tiers are pale (made for badge backgrounds)
+// and "actionHigh"/"flat" resolve, in light mode, to a muted/desaturated
+// "ink" tone rather than a vivid one — neither reads well as a map marker
+// fill, so we use the raw named swatch instead.
 const backgroundColors = Array.zip(statuses, [
-  hex.decisions.background.actionHigh.orangeTerreBattue.default,
-  hex.decisions.background.actionHigh.greenMenthe.default,
-  hex.decisions.background.actionHigh.beigeGrisGalet.default,
-  hex.decisions.background.actionHigh.yellowTournesol.default,
-  hex.decisions.background.actionHigh.blueEcume.default,
-  hex.decisions.background.actionHigh.greenBourgeon.default
+  hex.options.orangeTerreBattue.main645.default,
+  hex.options.greenMenthe.main548.default,
+  hex.options.beigeGrisGalet.main702.default,
+  hex.options.yellowTournesol.main731.default,
+  hex.options.blueEcume.main400.default,
+  hex.options.greenBourgeon.main640.default
 ]) as NonEmptyArray<[HousingStatus, string]>;
 // Neutral light outline (same as the default marker below) since the fill is
 // now vivid enough that a same-hue border would blend into it.
