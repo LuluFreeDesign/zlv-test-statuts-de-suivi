@@ -22,40 +22,37 @@ const STATUS_LEGEND_ITEMS: Array<{
   {
     status: HousingStatus.NO_ACTION,
     label: 'Aucune action',
-    backgroundColor:
-      hex.decisions.background.actionHigh.orangeTerreBattue.default,
+    backgroundColor: hex.options.orangeTerreBattue.main645.default,
     borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.QUALIFICATION,
     label: 'En qualification',
-    backgroundColor: hex.decisions.background.actionHigh.greenMenthe.default,
+    backgroundColor: hex.options.greenMenthe.main548.default,
     borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.REMOTE_EVOLUTION,
     label: 'Evolution lointaine',
-    backgroundColor:
-      hex.decisions.background.actionHigh.beigeGrisGalet.default,
+    backgroundColor: hex.options.beigeGrisGalet.main702.default,
     borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.UPCOMING_EVOLUTION,
     label: 'Evolution à venir',
-    backgroundColor:
-      hex.decisions.background.actionHigh.yellowTournesol.default,
+    backgroundColor: hex.options.yellowTournesol.main731.default,
     borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.ONGOING_EVOLUTION,
     label: 'Evolution en cours',
-    backgroundColor: hex.decisions.background.actionHigh.blueEcume.default,
+    backgroundColor: hex.options.blueEcume.main400.default,
     borderColor: hex.decisions.text.inverted.grey.default
   },
   {
     status: HousingStatus.ACHIEVED_EVOLUTION,
     label: 'Evolution réalisée',
-    backgroundColor: hex.decisions.background.actionHigh.greenBourgeon.default,
+    backgroundColor: hex.options.greenBourgeon.main640.default,
     borderColor: hex.decisions.text.inverted.grey.default
   }
 ];
